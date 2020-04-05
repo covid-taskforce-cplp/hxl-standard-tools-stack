@@ -1,0 +1,4 @@
+---
+
+# ansible-playbook -i inventories/etica.dev playbook.yml
+- import_playbook: playbooks/ping-all.yml

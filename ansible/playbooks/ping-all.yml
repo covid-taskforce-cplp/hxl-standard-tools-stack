@@ -1,0 +1,14 @@
+---
+
+# ansible-playbook -i inventories/etica.dev playbooks/ping-all.yml
+
+- name: "test connection"
+  hosts: all
+  remote_user: root
+  debugger: on_failed
+  vars:
+
+  tasks:
+    - name: "ping all"
+      ping:
+        data: pong
