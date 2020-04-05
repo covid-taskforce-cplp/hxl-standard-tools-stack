@@ -1,6 +1,30 @@
 ---
-# tasks file for traefik
+# FILE:            playbooks/roles/traefik/tasks/main.yml
+# LICENSE:         Public Domain
 
-- name: "ping all"
-  ping:
-    data: pong
+# - name: "Traefik | run traefik version"
+#   command: "traefik version"
+#   register: command_traefik_version
+
+# - name: "Traefik | version output"
+#   debug:
+#     var: "{{ command_traefik_version }}"
+
+# - shell: echo "It works"
+#   register: out
+# - debug: var=out.stdout_lines
+
+- name: "Check if {{ traefik_install_base }}/traefik exists"
+  stat:
+    path: "{{ traefik_install_base }}traefik"
+  register: stat_result
+
+# - debug: var=stat_result
+
+- name: "install.yml"
+  include: install.yml
+  when:
+    - "(not stat_result.stat.exists) or (traefik_force_reinstall|bool)"
+
+# - name: "configure.yml"
+#   include: configure.yml

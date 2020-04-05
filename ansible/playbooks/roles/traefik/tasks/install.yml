@@ -1,0 +1,30 @@
+---
+# FILE:            playbooks/roles/traefik/tasks/install.yml
+# LICENSE:         Public Domain
+
+- name: "Create traefik_temp_dir"
+  tempfile:
+    state: directory
+    suffix: traefik_temp_dir
+  register: traefik_temp_dir
+
+- name: "Download {{ traefik_download_url }}"
+  unarchive:
+    src: "{{ traefik_download_url }}"
+    dest: "{{ traefik_temp_dir.path }}"
+    remote_src: yes
+
+- name: "Move to {{ traefik_install_base }}"
+  copy:
+    src: "{{ traefik_temp_dir.path }}/traefik"
+    dest: "{{ traefik_install_base }}"
+    remote_src: yes
+    mode: "0755"
+
+- name: "Create systemd service"
+  template:
+    src: "traefik.service.j2"
+    dest: "/etc/systemd/system/traefik.service"
+    mode: 0664
+  notify:
+    - restart service

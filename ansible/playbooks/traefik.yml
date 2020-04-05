@@ -1,12 +1,12 @@
 ---
-# FILE:            playbooks/traefik-install.yml
+# FILE:            playbooks/traefik.yml
 # LICENSE:         Public Domain
 # DESCRIPTION:     Install traefik on the host
 #
 # REQUIES:         roles/traefik (already on this project)
-# ansible-playbook -i inventories/etica.dev playbooks/traefik-install.yml
+# ansible-playbook -i inventories/etica.dev playbooks/traefik.yml
 
-# ansible-playbook -i inventories/etica.dev playbooks/traefik-install.yml
+# ansible-playbook -i inventories/etica.dev playbooks/traefik.yml
 
 - hosts: all
   roles:

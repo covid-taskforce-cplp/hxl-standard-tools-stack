@@ -1,0 +1,13 @@
+---
+# FILE:            playbooks/roles/traefik/tasks/configure.yml
+# LICENSE:         Public Domain
+
+# TODO: implement traefik.toml template (fititnt, 2020-04-05 11:08 BRT)
+
+# - name: "Create systemd service"
+#   template:
+#     src: "traefik.toml.j2"
+#     dest: "/etc/systemd/system/traefik.service"
+#     mode: 0664
+#   notify:
+#     - restart service
