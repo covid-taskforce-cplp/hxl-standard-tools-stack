@@ -8,6 +8,13 @@
     suffix: traefik_temp_dir
   register: traefik_temp_dir
 
+- name: "Create /etc/traefik/ it does not exist"
+  file:
+    path: "/etc/traefik/"
+    state: directory
+    mode: '0755'
+  become: yes
+
 - name: "Download {{ traefik_download_url }}"
   unarchive:
     src: "{{ traefik_download_url }}"
@@ -27,4 +34,4 @@
     dest: "/etc/systemd/system/traefik.service"
     mode: 0664
   notify:
-    - restart service
+    - "restart traefik"

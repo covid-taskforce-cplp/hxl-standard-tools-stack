@@ -1,8 +1,14 @@
 ---
 # handlers file for traefik
 
-- name: "restart service"
+- name: "restart traefik"
   systemd:
     name: "traefik.service"
     state: restarted
     daemon_reload: yes
+
+# Dont support reload? We will use "reload traefik" as an alias to restart (but not daemon restart)
+- name: "reload traefik"
+  systemd:
+    name: "traefik.service"
+    state: restarted

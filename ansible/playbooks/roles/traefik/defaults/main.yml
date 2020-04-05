@@ -6,7 +6,11 @@
 traefik_version: "2.2.0"
 traefik_arch: "linux_amd64"
 traefik_install_base: "/usr/local/bin/"
-traefik_force_reinstall: yes
+
+# To force reinstall / update the traefik, please set this to yes
+traefik_force_reinstall: no
+
+traefik_debug_devel: no
 
 # traefik_download_url: "https://github.com/containous/traefik/releases/download/v2.2.0/traefik_v2.2.0_linux_amd64.tar.gz"
 traefik_download_url: "https://github.com/containous/traefik/releases/download/v{{ traefik_version }}/traefik_v{{ traefik_version }}_{{ traefik_arch }}.tar.gz"

@@ -4,10 +4,14 @@
 
 # TODO: implement traefik.toml template (fititnt, 2020-04-05 11:08 BRT)
 
-# - name: "Create systemd service"
-#   template:
-#     src: "traefik.toml.j2"
-#     dest: "/etc/systemd/system/traefik.service"
-#     mode: 0664
-#   notify:
-#     - restart service
+- name: "Deploy traefik.toml"
+  template:
+    src: "traefik.toml.j2"
+    dest: "/etc/traefik/traefik.toml"
+    mode: 0664
+    block_start_string: "[[[%"
+    block_end_string: "%]]]"
+    variable_start_string: "[[["
+    variable_end_string: "]]]"
+  notify:
+    - reload traefik

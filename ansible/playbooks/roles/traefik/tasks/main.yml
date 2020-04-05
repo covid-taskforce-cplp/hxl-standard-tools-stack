@@ -14,7 +14,7 @@
 #   register: out
 # - debug: var=out.stdout_lines
 
-- name: "Check if {{ traefik_install_base }}/traefik exists"
+- name: "Check if {{ traefik_install_base }}traefik exists"
   stat:
     path: "{{ traefik_install_base }}traefik"
   register: stat_result
@@ -26,5 +26,7 @@
   when:
     - "(not stat_result.stat.exists) or (traefik_force_reinstall|bool)"
 
-# - name: "configure.yml"
-#   include: configure.yml
+- name: "configure.yml"
+  include: configure.yml
+
+# TODO: create dedicated user traefik (fititnt, 2020-04-05 11:28 BRT)
