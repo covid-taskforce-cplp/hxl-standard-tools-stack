@@ -1,0 +1,16 @@
+---
+# FILE:            playbooks/traefik-install.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Install traefik on the host
+#
+# REQUIES:         roles/traefik (already on this project)
+# ansible-playbook -i inventories/etica.dev playbooks/traefik-install.yml
+
+# ansible-playbook -i inventories/etica.dev playbooks/traefik-install.yml
+
+- hosts: all
+  roles:
+    - traefik
+
+# @see https://community.containo.us/t/why-i-still-prefer-v1-over-v2-or-why-i-really-dont-like-to-use-v2/3252
+# @see https://docs.traefik.io/getting-started/install-traefik/

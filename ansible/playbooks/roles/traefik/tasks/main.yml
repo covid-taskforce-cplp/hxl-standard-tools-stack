@@ -1,0 +1,6 @@
+---
+# tasks file for traefik
+
+- name: "ping all"
+  ping:
+    data: pong
