@@ -1,4 +1,11 @@
 ---
+# FILE:            playbook.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     This is an Ansible main playbook. It call all other
+#                  sub-playbooks in a order to make an full preparation of the
+#                  host that will run the docker containers
 
 # ansible-playbook -i inventories/etica.dev playbook.yml
 - import_playbook: playbooks/ping-all.yml
+- import_playbook: playbooks/common.yml
+- import_playbook: playbooks/docker.yml

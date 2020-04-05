@@ -1,0 +1,12 @@
+---
+# FILE:            playbooks/docker-install.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Install docker on the host
+#
+# REQUIES:         geerlingguy.docker Role (https://github.com/geerlingguy/ansible-role-docker)
+
+# ansible-playbook -i inventories/etica.dev playbooks/docker-install.yml
+
+- hosts: all
+  roles:
+    - geerlingguy.docker

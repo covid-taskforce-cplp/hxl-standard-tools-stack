@@ -1,0 +1,11 @@
+---
+# FILE:            requirements.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     The requirements.yml may be used by ansible-galaxy command
+#                  to install Ansible roles that are used by Ansible playbooks
+#
+# USAGE:           ansible-galaxy install -r requirements.yml
+
+# from galaxy
+- src: geerlingguy.docker
+  # Tested with v2.7.0, 2020-04-05

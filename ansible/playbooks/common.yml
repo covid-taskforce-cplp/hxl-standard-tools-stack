@@ -1,0 +1,33 @@
+---
+# FILE:            playbooks/common.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Generic common tasks
+
+# ansible-playbook -i inventories/etica.dev playbooks/common.yml
+
+- name: "Common tasks"
+  hosts: all
+  tasks:
+
+    - name: "sudo hostnamectl set-hostname {{ inventory_hostname }}"
+      hostname:
+        name: "{{ inventory_hostname | replace('_', '-') }}"
+      when: 
+        - "(inventory_hostname_short | replace('_', '-')) != ansible_hostname"
+
+    - name: "sudo timedatectl set-timezone UTC"
+      timezone:
+        name: UTC
+      when: ansible_facts['date_time']['tz'] != 'UTC'
+
+    - name: "sudo apt-get install aptitude (Debian Family)"
+      apt:
+        name: aptitude
+        state: present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: "Install htop"
+      package:
+        name: 
+          - htop
+        state: present
