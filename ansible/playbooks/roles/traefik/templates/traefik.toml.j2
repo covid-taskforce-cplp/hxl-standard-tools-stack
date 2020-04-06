@@ -103,7 +103,7 @@
   # Default: true
   #
   # insecure = false
-  # insecure = true
+  insecure = [[[ traefik_api_insecure | ternary('true', 'false') ]]]
 
   # Enabled Dashboard
   #
@@ -111,7 +111,7 @@
   # Default: true
   #
   # dashboard = false
-  dashboard = true
+  dashboard = [[[ traefik_api_dashboard | ternary('true', 'false') ]]]
 
 ################################################################
 # Ping configuration
@@ -155,6 +155,13 @@
   #
   # exposedByDefault = false
 
+[[[% if (traefik_acme_enabled|bool) %]]]
+# Enable ACME (Let's Encrypt): automatic SSL.
+[acme]
+email = "[[[ traefik_acme_email ]]]"
+storage = "acme.json"
+entryPoint = "https"
+[[[% endif %]]]
 
 [[[% if (traefik_debug_devel|bool) %]]]
 # Dynamic Configuration

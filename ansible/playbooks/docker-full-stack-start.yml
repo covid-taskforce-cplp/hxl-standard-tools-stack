@@ -7,7 +7,9 @@
 
 # ansible-playbook -i inventories/etica.dev playbooks/docker-full-stack-start.yml
 
-- name: Run using a project directory
+# @see https://github.com/docker/compose/issues/6361#issuecomment-462346569
+
+- name: "docker-full-stack-start"
   hosts: all
   gather_facts: yes
   tasks:
@@ -16,10 +18,25 @@
     #     project_src: flask
     #     state: absent
 
-    - name: Create and start services
+    # - name: "docker-full-stack-start | debug"
+    #   debug:
+    #     msg: "{{ playbook_dir }}/../../docker/full-stack/"
+    #     # var: "{{ playbook_dir }}/../../docker/full-stack/"
+
+    - name: "docker-full-stack-start| Copy docker/full-stack/ to [ansible user home]/full-stack/"
+      copy:
+        src: "{{ playbook_dir }}/../../docker/full-stack/"
+        dest: "{{ ansible_env.HOME }}/full-stack/"
+
+    - name: "docker-full-stack-start | start services"
       docker_compose:
-        project_src: "{{ playbook_dir }}/../../docker/full-stack"
+        project_src: "{{ ansible_env.HOME }}/full-stack/"
+        state: present
+        services:
+          - hello
+          - hxl-proxy
       register: output
 
-    - debug:
-        var: output
+    - name: "docker-full-stack-start | services result"
+      debug:
+        msg: "{{ output }}"

@@ -4,12 +4,16 @@ version: "3"
 
 services:
   # hxldash:
+  
+  hello:
+    image: nginxdemos/hello
 
   hxl-proxy:
-    image: unocha/hxl-proxy:latest
+    # image: unocha/hxl-proxy:latest
+    image: unocha/hxl-proxy:dev
     command: python manage.py runserver 0.0.0.0:8000
-  depends_on:
-    - postgres_hxl-proxy
+    depends_on:
+      - postgres_hxl-proxy
 
   postgres_hxl-proxy:
     image: postgres

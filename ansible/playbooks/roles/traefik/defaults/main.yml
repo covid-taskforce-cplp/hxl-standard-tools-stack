@@ -12,5 +12,14 @@ traefik_force_reinstall: no
 
 traefik_debug_devel: no
 
+traefik_api_dashboard: true
+traefik_api_insecure: false
+
+traefik_acme_enabled: false
+traefik_acme_email: "test@traefik.io"
+
+
+# ______________________________________________________________________________
+
 # traefik_download_url: "https://github.com/containous/traefik/releases/download/v2.2.0/traefik_v2.2.0_linux_amd64.tar.gz"
 traefik_download_url: "https://github.com/containous/traefik/releases/download/v{{ traefik_version }}/traefik_v{{ traefik_version }}_{{ traefik_arch }}.tar.gz"
