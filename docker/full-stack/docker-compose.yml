@@ -1,12 +1,32 @@
 version: "3"
 
 # See https://docs.docker.com/compose/django/
+# @see https://github.com/bubelov/traefik-letsencrypt-compose/blob/master/docker-compose.yml
+# @see https://containo.us/blog/traefik-2-0-docker-101-fc2893944b9d/
 
 services:
   # hxldash:
   
   hello:
     image: nginxdemos/hello
+    labels:
+      - traefik.http.routers.http.rule=Host(`hello.hxl.etica.dev`)
+      - traefik.http.routers.https.rule=Host(`hello.hxl.etica.dev`)
+      - traefik.http.routers.https.entrypoints=https
+      - traefik.http.routers.https.tls=true
+      # - traefik.http.routers.https.tls.certresolver=letsencrypt
+
+  whoami:
+    image: containous/whoami
+    container_name: whoami
+    labels:
+      - traefik.http.routers.http.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.http.entrypoints=http
+      - traefik.http.routers.http.middlewares=redirect
+      - traefik.http.routers.https.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.https.entrypoints=https
+      - traefik.http.routers.https.tls=true
+      # - traefik.http.routers.https.tls.certresolver=${HTPPS_CERTIFICATE_RESOLVER}
 
   hxl-proxy:
     # image: unocha/hxl-proxy:latest

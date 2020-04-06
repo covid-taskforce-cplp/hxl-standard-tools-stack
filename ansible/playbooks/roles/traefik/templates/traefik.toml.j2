@@ -47,6 +47,7 @@
   # Default: "ERROR"
   #
   # level = "DEBUG"
+  level = "[[[ trafik_log_level ]]]"
 
   # Sets the filepath for the traefik log. If not specified, stdout will be used.
   # Intermediate directories are created if necessary.
@@ -155,15 +156,26 @@
   #
   # exposedByDefault = false
 
-[[[% if (traefik_acme_enabled|bool) %]]]
-# Enable ACME (Let's Encrypt): automatic SSL.
-[acme]
-email = "[[[ traefik_acme_email ]]]"
-storage = "acme.json"
-entryPoint = "https"
-[[[% endif %]]]
+[certificatesResolvers]
+  [certificatesResolvers.default.acme]
+    email = "contact@myemail.com"
+    storage = "acme.json"
+    [certificatesResolvers.default.acme.tlsChallenge]
+
+# [[[% if (traefik_acme_enabled|bool) %]]]
+# #[certificatesResolvers]
+# [certificatesResolver]
+#   [certificatesResolver.letsencrypt]
+#     # Enable ACME (Let's Encrypt): automatic SSL.
+#     [certificatesResolver.letsencrypt.acme]
+#       email = "[[[ traefik_acme_email ]]]"
+#       storage = "acme.json"
+#       entryPoint = "https"
+#       httpchallenge = true
+# [[[% endif %]]]
 
 [[[% if (traefik_debug_devel|bool) %]]]
+
 # Dynamic Configuration
 [http.routers.my-api]
   rule = "Host(`traefik.hxl.etica.dev`)"

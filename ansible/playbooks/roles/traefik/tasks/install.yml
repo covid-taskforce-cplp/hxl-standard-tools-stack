@@ -15,6 +15,13 @@
     mode: '0755'
   become: yes
 
+- name: "Create /etc/traefik/acme.json it does not exist"
+  file:
+    path: "/etc/traefik/acme.json"
+    state: touch
+    mode: '0750'
+  # become: yes
+
 - name: "Download {{ traefik_download_url }}"
   unarchive:
     src: "{{ traefik_download_url }}"
