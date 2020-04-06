@@ -1,0 +1,24 @@
+---
+# FILE:            playbooks/docker-setup-host.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Install docker on the host
+#
+# REQUIES:         geerlingguy.docker Role (https://github.com/geerlingguy/ansible-role-docker)
+# REQUIES:         geerlingguy.pip Role (https://github.com/geerlingguy/ansible-role-pip)
+
+# ansible-playbook -i inventories/etica.dev playbooks/docker-setup-host.yml
+
+- hosts: all
+  vars:
+
+    # By default, geerlingguy.pip will use pip from python 2.7.
+    # You can force on your inventory use another pip. On case of
+    # Ubuntu, you can use:
+    # pip_executable: "python3-pip"
+
+
+    pip_install_packages:
+      - name: docker
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker

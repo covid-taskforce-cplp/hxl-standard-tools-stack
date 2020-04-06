@@ -1,0 +1,15 @@
+version: "3"
+
+# See https://docs.docker.com/compose/django/
+
+services:
+  # hxldash:
+
+  hxl-proxy:
+    image: unocha/hxl-proxy:latest
+    command: python manage.py runserver 0.0.0.0:8000
+  depends_on:
+    - postgres_hxl-proxy
+
+  postgres_hxl-proxy:
+    image: postgres

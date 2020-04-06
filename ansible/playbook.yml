@@ -8,5 +8,6 @@
 # ansible-playbook -i inventories/etica.dev playbook.yml
 - import_playbook: playbooks/ping-all.yml
 - import_playbook: playbooks/common.yml
-- import_playbook: playbooks/docker.yml
 - import_playbook: playbooks/traefik.yml
+- import_playbook: playbooks/docker-setup-host.yml
+- import_playbook: playbooks/docker-full-stack-start.yml

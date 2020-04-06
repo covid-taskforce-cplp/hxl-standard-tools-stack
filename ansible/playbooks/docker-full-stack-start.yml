@@ -1,0 +1,25 @@
+---
+# FILE:            playbooks/docker-full-stack-start.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     
+#
+# REQUIRES:       pip install docker
+
+# ansible-playbook -i inventories/etica.dev playbooks/docker-full-stack-start.yml
+
+- name: Run using a project directory
+  hosts: all
+  gather_facts: yes
+  tasks:
+    # - name: Tear down existing services
+    #   docker_compose:
+    #     project_src: flask
+    #     state: absent
+
+    - name: Create and start services
+      docker_compose:
+        project_src: "{{ playbook_dir }}/../../docker/full-stack"
+      register: output
+
+    - debug:
+        var: output

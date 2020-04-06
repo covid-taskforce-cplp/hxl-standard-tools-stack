@@ -6,6 +6,10 @@
 #
 # USAGE:           ansible-galaxy install -r requirements.yml
 
-# from galaxy
+# https://github.com/geerlingguy/ansible-role-docker
 - src: geerlingguy.docker
   # Tested with v2.7.0, 2020-04-05
+
+# https://github.com/geerlingguy/ansible-role-pip
+- src: geerlingguy.pip
+  # Tested with v1.3.0, 2018-11-10
