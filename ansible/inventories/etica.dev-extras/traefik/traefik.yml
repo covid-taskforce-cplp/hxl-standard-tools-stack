@@ -3,9 +3,6 @@
 # See https://docs.traefik.io/user-guides/docker-compose/basic-example/
 # See https://docs.traefik.io/user-guides/docker-compose/acme-tls/
 
-# TODO: this fine, if on the inventory dir, will return errors; Fix this
-#       layout structure later (fititnt, 2020-04-07 00:29 BRT)
-
 global:
   checkNewVersion: true
   sendAnonymousUsage: false
@@ -15,6 +12,20 @@ entryPoints:
     address: ":80"
   websecure:
     address: ":443"
+
+## TODO: learn how to implement middlewares on Traefik 2.2 and then do an default
+#        redirect http to https that could be referenced on docker-compose
+#        containers (fititnt, 2020-04-07 01:34)
+
+# @see https://docs.traefik.io/middlewares/redirectscheme/
+# Redirect to https
+# http:
+#   middlewares:
+#     test-redirectscheme:
+#       redirectScheme:
+#         scheme: https
+#         #permanent: true
+
 log:
   level: "DEBUG" # level: "ERROR"
 

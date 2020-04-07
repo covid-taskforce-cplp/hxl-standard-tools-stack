@@ -13,17 +13,8 @@
   hosts: all
   gather_facts: yes
   tasks:
-    # - name: Tear down existing services
-    #   docker_compose:
-    #     project_src: flask
-    #     state: absent
 
-    # - name: "docker-full-stack-start | debug"
-    #   debug:
-    #     msg: "{{ playbook_dir }}/../../docker/full-stack/"
-    #     # var: "{{ playbook_dir }}/../../docker/full-stack/"
-
-    - name: "docker-full-stack-start| Copy docker/full-stack/ to [ansible user home]/full-stack/"
+    - name: "docker-full-stack-start | Copy docker/full-stack/ to [ansible user home]/full-stack/"
       copy:
         src: "{{ playbook_dir }}/../../docker/full-stack/"
         dest: "{{ ansible_env.HOME }}/full-stack/"
@@ -35,7 +26,7 @@
         services:
         #  - hello
           - whoami
-        #  - hxl-proxy
+          - hxl-proxy
       register: output
 
     - name: "docker-full-stack-start | services result"

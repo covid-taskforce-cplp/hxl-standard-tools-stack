@@ -24,21 +24,24 @@ services:
       - "traefik.http.routers.whoami.rule=Host(`whoami.hxl.etica.dev`)"
       - "traefik.http.routers.whoami.entrypoints=web,websecure"
       - "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
-      # - traefik.http.routers.http.rule=Host(`${DOMAIN}`)
-      # - traefik.http.routers.http.entrypoints=web,websecure
-      # - traefik.http.routers.http.middlewares=redirect
-      # - traefik.http.routers.https.rule=Host(`${DOMAIN}`)
-      # - traefik.http.routers.https.entrypoints=https
-      # - traefik.http.routers.https.tls=true
-      # - traefik.http.routers.https.tls.certresolver=${HTPPS_CERTIFICATE_RESOLVER}
-      # - traefik.http.routers.http.entrypoints=web,websecure
+      # TODO: implement middleware 'redirect HTTP to HTTPS' (fititnt, 2020-04-07 00>39 BRT)
+      # - "traefik.http.routers.http.middlewares=redirect"
 
+  # TODO: make it work
+  # @see https://github.com/HXLStandard/hxl-proxy/blob/master/docker_files/docker-compose.yml
   hxl-proxy:
-    # image: unocha/hxl-proxy:latest
-    image: unocha/hxl-proxy:dev
-    command: python manage.py runserver 0.0.0.0:8000
-    depends_on:
-      - postgres_hxl-proxy
+    # image: unocha/hxl-proxy:dev
+    image: unocha/hxl-proxy:1.18 # see https://hub.docker.com/r/unocha/hxl-proxy/tags
+    # command: python manage.py runserver 0.0.0.0:8000
+    # depends_on:
+    #   - postgres_hxl-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hxl-proxy.rule=Host(`proxy.hxl.etica.dev`)"
+      - "traefik.http.routers.hxl-proxy.entrypoints=web,websecure"
+      - "traefik.http.routers.hxl-proxy.tls.certresolver=letsencrypt"
+      # TODO: implement middleware 'redirect HTTP to HTTPS' (fititnt, 2020-04-07 00>39 BRT)
+      # - "traefik.http.routers.http.middlewares=redirect"
 
-  postgres_hxl-proxy:
-    image: postgres
+  # postgres_hxl-proxy:
+  #   image: postgres
