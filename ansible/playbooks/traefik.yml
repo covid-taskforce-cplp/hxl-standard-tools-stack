@@ -6,8 +6,6 @@
 # REQUIES:         roles/traefik (already on this project)
 # ansible-playbook -i inventories/etica.dev playbooks/traefik.yml
 
-# ansible-playbook -i inventories/etica.dev playbooks/traefik.yml
-
 - hosts: all
   roles:
     - traefik

@@ -1,0 +1,29 @@
+---
+# FILE:            playbooks/docker-full-stack-stop.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     
+#
+# REQUIRES:       pip install docker
+
+# ansible-playbook -i inventories/etica.dev playbooks/docker-full-stack-stop.yml
+
+- name: "docker-full-stack-stop"
+  hosts: all
+  gather_facts: yes
+  tasks:
+
+    - name: "docker-full-stack-stop| Copy docker/full-stack/ to [ansible user home]/full-stack/"
+      copy:
+        src: "{{ playbook_dir }}/../../docker/full-stack/"
+        dest: "{{ ansible_env.HOME }}/full-stack/"
+
+    - name: "docker-full-stack-stop | stop all services on this docker-compose.yml"
+      docker_compose:
+        project_src: "{{ ansible_env.HOME }}/full-stack/"
+        state: present
+        stopped: yes
+      register: output
+
+    - name: "docker-full-stack-stop | services result"
+      debug:
+        msg: "{{ output }}"

@@ -4,14 +4,26 @@
 
 # TODO: implement traefik.toml template (fititnt, 2020-04-05 11:08 BRT)
 
-- name: "Deploy traefik.toml"
+# - name: "Deploy traefik.toml"
+#   template:
+#     src: "traefik.toml.j2"
+#     dest: "/etc/traefik/traefik.toml"
+#     mode: 0664
+#     block_start_string: "[[[%"
+#     block_end_string: "%]]]"
+#     variable_start_string: "[[["
+#     variable_end_string: "]]]"
+#   notify:
+#     - reload traefik
+
+- name: "Deploy /etc/traefik/traefik.yml"
   template:
-    src: "traefik.toml.j2"
-    dest: "/etc/traefik/traefik.toml"
+    src: "{{ traefik_conf_yml }}"
+    dest: "/etc/traefik/traefik.yml"
     mode: 0664
-    block_start_string: "[[[%"
-    block_end_string: "%]]]"
-    variable_start_string: "[[["
-    variable_end_string: "]]]"
+    # block_start_string: "[[[%"
+    # block_end_string: "%]]]"
+    # variable_start_string: "[[["
+    # variable_end_string: "]]]"
   notify:
     - reload traefik
