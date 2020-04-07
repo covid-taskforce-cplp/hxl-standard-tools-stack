@@ -29,6 +29,9 @@ entryPoints:
 log:
   level: "DEBUG" # level: "ERROR"
 
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+
 api:
   insecure: true
   dashboard: true

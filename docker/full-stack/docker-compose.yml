@@ -26,12 +26,24 @@ services:
       - "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
       # TODO: implement middleware 'redirect HTTP to HTTPS' (fititnt, 2020-04-07 00>39 BRT)
       # - "traefik.http.routers.http.middlewares=redirect"
+      # - "traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/,test2:$$apr1$$d9hr9HBB$$4HxwgUir3HP4EsggP/QNo0"
+
+  dash:
+    image: covidtaskforcecplp/hxldash:latest
+    container_name: dash
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dash.rule=Host(`dash.hxl.etica.dev`)"
+      - "traefik.http.routers.dash.entrypoints=web,websecure"
+      - "traefik.http.routers.dash.tls.certresolver=letsencrypt"
+      # TODO: implement middleware 'redirect HTTP to HTTPS' (fititnt, 2020-04-07 00>39 BRT)
+      # - "traefik.http.routers.http.middlewares=redirect"
 
   # TODO: make it work
   # @see https://github.com/HXLStandard/hxl-proxy/blob/master/docker_files/docker-compose.yml
-  hxl-proxy:
-    # image: unocha/hxl-proxy:dev
+  proxy:
     image: unocha/hxl-proxy:1.18 # see https://hub.docker.com/r/unocha/hxl-proxy/tags
+    container_name: proxy
     # command: python manage.py runserver 0.0.0.0:8000
     # depends_on:
     #   - postgres_hxl-proxy

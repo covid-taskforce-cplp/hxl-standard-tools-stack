@@ -15,6 +15,21 @@
     mode: '0755'
   become: yes
 
+- name: "Create /var/log/traefik/ it does not exist"
+  file:
+    path: "/var/log/traefik/"
+    state: directory
+    mode: '0755'
+  become: yes
+
+# TODO: implement logrotation (fititnt, 2020-04-07 04:43 BRT)
+- name: "Create /var/log/traefik/access.log it does not exist"
+  file:
+    path: "/var/log/traefik/access.log"
+    state: touch
+    mode: '0664'
+  # become: yes
+
 - name: "Create /etc/traefik/acme.json it does not exist"
   file:
     path: "/etc/traefik/acme.json"

@@ -8,9 +8,14 @@ This repository is a draft. Please check <https://github.com/covid-taskforce-cpl
 
 At this moment, we're using as test server the `hxl.etica.dev`.
 
-- Traefik Dashboard
-  - <http://hxl.etica.dev:8080/dashboard/>
-  - <http://traefik.hxl.etica.dev/dashboard/>
-- Test URL
-  - <http://test.hxl.etica.dev>
-  - <https://test.hxl.etica.dev>
+
+- **HXL Dash**
+  - <https://dash.hxl.etica.dev/>
+- **HXL Proxy**
+  - <https://proxy.hxl.etica.dev/>
+- **Internal URLs**
+  - **Traefik Dashboard**
+    - <http://hxl.etica.dev:8080/dashboard/>
+    - <https://traefik.hxl.etica.dev/dashboard/>
+  - **whoiam**
+    - <https://whoami.hxl.etica.dev/>

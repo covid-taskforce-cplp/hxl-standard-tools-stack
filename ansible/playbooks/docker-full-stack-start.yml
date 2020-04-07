@@ -26,7 +26,8 @@
         services:
         #  - hello
           - whoami
-          - hxl-proxy
+          - proxy
+          - dash
       register: output
 
     - name: "docker-full-stack-start | services result"
