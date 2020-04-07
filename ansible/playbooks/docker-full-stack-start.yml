@@ -33,8 +33,9 @@
         project_src: "{{ ansible_env.HOME }}/full-stack/"
         state: present
         services:
-          - hello
-          - hxl-proxy
+        #  - hello
+          - whoami
+        #  - hxl-proxy
       register: output
 
     - name: "docker-full-stack-start | services result"

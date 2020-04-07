@@ -7,26 +7,31 @@ version: "3"
 services:
   # hxldash:
   
-  hello:
-    image: nginxdemos/hello
-    labels:
-      - traefik.http.routers.http.rule=Host(`hello.hxl.etica.dev`)
-      - traefik.http.routers.https.rule=Host(`hello.hxl.etica.dev`)
-      - traefik.http.routers.https.entrypoints=https
-      - traefik.http.routers.https.tls=true
-      # - traefik.http.routers.https.tls.certresolver=letsencrypt
+  # hello:
+  #   image: nginxdemos/hello
+  #   labels:
+  #     - traefik.http.routers.http.rule=Host(`hello.hxl.etica.dev`)
+  #     - traefik.http.routers.https.rule=Host(`hello.hxl.etica.dev`)
+  #     - traefik.http.routers.https.entrypoints=https
+  #     - traefik.http.routers.https.tls=true
+  #     # - traefik.http.routers.https.tls.certresolver=letsencrypt
 
   whoami:
     image: containous/whoami
     container_name: whoami
     labels:
-      - traefik.http.routers.http.rule=Host(`${DOMAIN}`)
-      - traefik.http.routers.http.entrypoints=http
-      - traefik.http.routers.http.middlewares=redirect
-      - traefik.http.routers.https.rule=Host(`${DOMAIN}`)
-      - traefik.http.routers.https.entrypoints=https
-      - traefik.http.routers.https.tls=true
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.hxl.etica.dev`)"
+      - "traefik.http.routers.whoami.entrypoints=web,websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
+      # - traefik.http.routers.http.rule=Host(`${DOMAIN}`)
+      # - traefik.http.routers.http.entrypoints=web,websecure
+      # - traefik.http.routers.http.middlewares=redirect
+      # - traefik.http.routers.https.rule=Host(`${DOMAIN}`)
+      # - traefik.http.routers.https.entrypoints=https
+      # - traefik.http.routers.https.tls=true
       # - traefik.http.routers.https.tls.certresolver=${HTPPS_CERTIFICATE_RESOLVER}
+      # - traefik.http.routers.http.entrypoints=web,websecure
 
   hxl-proxy:
     # image: unocha/hxl-proxy:latest

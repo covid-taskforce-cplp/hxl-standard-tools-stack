@@ -1,1 +1,50 @@
+---
 # See https://github.com/containous/traefik/blob/master/docs/content/reference/static-configuration/file.yaml
+# See https://docs.traefik.io/user-guides/docker-compose/basic-example/
+# See https://docs.traefik.io/user-guides/docker-compose/acme-tls/
+
+# TODO: this fine, if on the inventory dir, will return errors; Fix this
+#       layout structure later (fititnt, 2020-04-07 00:29 BRT)
+
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+log:
+  level: "DEBUG" # level: "ERROR"
+
+api:
+  insecure: true
+  dashboard: true
+  debug: true
+
+ping:
+  entryPoint: traefik
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: true
+
+certificatesresolvers:
+  letsencrypt:
+    acme:
+      email: no-reply@etica.dev
+      storage: /etc/traefik/acme.json
+      tlschallenge: true
+      # Use the Let's Encrypt test server
+      # caserver: "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+  # This is an example. The DNS challange needs tokens depending of the provider
+  # @see https://docs.traefik.io/user-guides/docker-compose/acme-dns/
+  letsencryptDns:
+    acme:
+      email: no-reply@etica.dev
+      storage: /etc/traefik/acme.json
+      dnschallenge:
+        provider: "ovh" # cloudflare, digitalocean, ...

@@ -10,6 +10,7 @@ traefik_install_base: "/usr/local/bin/"
 # traefik_conf_yml: "{{ role_path }}/templates/traefik.yml.j2"
 # Please use something like:
 # traefik_conf_yml: "{{ playbook_dir }}/inventories/etica.dev/traefik/traefik.yml"
+# traefik_systemd_service_template: "" # You can also customize the systemd service template
 
 # To force reinstall / update the traefik, please set this to yes
 traefik_force_reinstall: no

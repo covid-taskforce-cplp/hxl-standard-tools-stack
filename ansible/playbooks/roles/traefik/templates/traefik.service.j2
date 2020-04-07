@@ -17,7 +17,8 @@ After=network-online.target
 
 # configure service behavior
 Type=notify
-ExecStart=/usr/local/bin/traefik --configFile=/etc/traefik/traefik.toml
+#ExecStart=/usr/local/bin/traefik --configFile=/etc/traefik/traefik.toml
+ExecStart=/usr/local/bin/traefik --configFile=/etc/traefik/traefik.yml
 Restart=always
 WatchdogSec=1s
 
