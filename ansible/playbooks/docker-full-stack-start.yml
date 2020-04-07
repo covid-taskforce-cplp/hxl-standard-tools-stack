@@ -28,6 +28,7 @@
           - whoami
           - proxy
           - dash
+          - portainer
       register: output
 
     - name: "docker-full-stack-start | services result"

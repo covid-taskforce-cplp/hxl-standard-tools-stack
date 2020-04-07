@@ -8,7 +8,6 @@ This repository is a draft. Please check <https://github.com/covid-taskforce-cpl
 
 At this moment, we're using as test server the `hxl.etica.dev`.
 
-
 - **HXL Dash**
   - <https://dash.hxl.etica.dev/>
 - **HXL Proxy**
@@ -17,5 +16,7 @@ At this moment, we're using as test server the `hxl.etica.dev`.
   - **Traefik Dashboard**
     - <http://hxl.etica.dev:8080/dashboard/>
     - <https://traefik.hxl.etica.dev/dashboard/>
+  - **Portainer**
+    - <https://portainer.hxl.etica.dev/> (`admin` : `cplppass`)
   - **whoiam**
     - <https://whoami.hxl.etica.dev/>

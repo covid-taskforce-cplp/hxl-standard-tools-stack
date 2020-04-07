@@ -26,7 +26,7 @@ services:
       - "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
       # TODO: implement middleware 'redirect HTTP to HTTPS' (fititnt, 2020-04-07 00>39 BRT)
       # - "traefik.http.routers.http.middlewares=redirect"
-      # - "traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/,test2:$$apr1$$d9hr9HBB$$4HxwgUir3HP4EsggP/QNo0"
+      - "traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/,test2:$$apr1$$d9hr9HBB$$4HxwgUir3HP4EsggP/QNo0"
 
   dash:
     image: covidtaskforcecplp/hxldash:latest
@@ -49,11 +49,63 @@ services:
     #   - postgres_hxl-proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.hxl-proxy.rule=Host(`proxy.hxl.etica.dev`)"
-      - "traefik.http.routers.hxl-proxy.entrypoints=web,websecure"
-      - "traefik.http.routers.hxl-proxy.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.proxy.rule=Host(`proxy.hxl.etica.dev`)"
+      - "traefik.http.routers.proxy.entrypoints=web,websecure"
+      - "traefik.http.routers.proxy.tls.certresolver=letsencrypt"
       # TODO: implement middleware 'redirect HTTP to HTTPS' (fititnt, 2020-04-07 00>39 BRT)
       # - "traefik.http.routers.http.middlewares=redirect"
 
   # postgres_hxl-proxy:
   #   image: postgres
+
+  # Portainer + agent: https://github.com/portainer/portainer-compose/blob/master/docker-stack.yml
+  # agent:
+  #   image: portainer/agent
+  #   environment:
+  #     # REQUIRED: Should be equal to the service name prefixed by "tasks." when
+  #     # deployed inside an overlay network
+  #     AGENT_CLUSTER_ADDR: tasks.agent
+  #     # AGENT_PORT: 9001
+  #     # LOG_LEVEL: debug
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /var/lib/docker/volumes:/var/lib/docker/volumes
+  #   networks:
+  #     - agent_network
+  #   # deploy:
+  #   #   mode: global
+  #   #   placement:
+  #   #     constraints: [node.platform.os == linux]
+
+  # Admin Access (hxl.etiva.dev server) admin:cplppass
+  portainer:
+    image: portainer/portainer
+    # command: -H tcp://tasks.agent:9001 --tlsskipverify
+    # TODO: remove these exposed ports
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    # networks:
+    #   - agent_network
+    # deploy:
+    #   mode: replicated
+    #   replicas: 1
+    #   placement:
+    #     constraints: [node.role == manager]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.hxl.etica.dev`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer.entrypoints=web,websecure"
+      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
+
+# networks:
+#   agent_network:
+#     driver: overlay
+
+volumes:
+  portainer_data:
