@@ -1,0 +1,47 @@
+---
+# FILE:            playbooks/docker-full-stack-rebuild.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     
+#
+# REQUIRES:       pip install docker
+
+# ansible-playbook -i inventories/etica.dev playbooks/docker-full-stack-rebuild.yml
+
+- name: "docker-full-stack-rebuild"
+  hosts: all
+  gather_facts: yes
+  tasks:
+
+    - name: "docker-full-stack-rebuild | Copy docker/full-stack/ to [ansible user home]/full-stack/"
+      copy:
+        src: "{{ playbook_dir }}/../../docker/full-stack/"
+        dest: "{{ ansible_env.HOME }}/full-stack/"
+
+    # - name: "docker-full-stack-rebuild | stop all services on this docker-compose.yml"
+    #   docker_compose:
+    #     project_src: "{{ ansible_env.HOME }}/full-stack/"
+    #     state: present
+    #     stopped: yes
+    #   register: output
+
+    # - name: "docker-full-stack-rebuild | services result"
+    #   debug:
+    #     msg: "{{ output }}"
+
+    - name: "docker-full-stack-rebuild | rebuild services and start services"
+      docker_compose:
+        project_src: "{{ ansible_env.HOME }}/full-stack/"
+        state: present
+        build: yes
+        pull: yes
+        recreate: always
+        services:
+          # - whoami
+          # - proxy
+          - dash
+          # - portainer
+      register: output
+
+    - name: "docker-full-stack-start | services result"
+      debug:
+        msg: "{{ output }}"
