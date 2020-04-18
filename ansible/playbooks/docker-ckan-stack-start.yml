@@ -1,0 +1,36 @@
+---
+# FILE:            playbooks/docker-ckan-stack-start.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     
+#
+# REQUIRES:       pip install docker
+
+# ansible-playbook -i inventories/etica.dev playbooks/docker-ckan-stack-start.yml
+
+# @see https://github.com/docker/compose/issues/6361#issuecomment-462346569
+
+- name: "docker-ckan-stack-start"
+  hosts: all
+  gather_facts: yes
+  tasks:
+
+    - name: "docker-ckan-stack-start | Copy docker/ckan-stack/ to [ansible user home]/ckan-stack/"
+      copy:
+        src: "{{ playbook_dir }}/../../docker/ckan-stack/"
+        dest: "{{ ansible_env.HOME }}/ckan-stack/"
+
+    - name: "docker-ckan-stack-start | start services"
+      docker_compose:
+        project_src: "{{ ansible_env.HOME }}/ckan-stack/"
+        state: present
+        services:
+        #  - hello
+          - ckan_ckan
+          - ckan_postgresql
+          - ckan_solr
+          - ckan_redis
+      register: output
+
+    - name: "docker-ckan-stack-start | services result"
+      debug:
+        msg: "{{ output }}"

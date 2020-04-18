@@ -1,3 +1,7 @@
+---
+# FILE:            docker/full-stack/docker-compose.yml
+# LICENSE:         Public Domain
+
 version: "3"
 
 # See https://docs.docker.com/compose/django/

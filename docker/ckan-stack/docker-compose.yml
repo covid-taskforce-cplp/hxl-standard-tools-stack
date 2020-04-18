@@ -1,3 +1,38 @@
-# https://github.com/ckan/ckan/wiki/How-to-Install-CKAN-2.7.3-on-CentOS7-with-Ansible
-# https://github.com/UtrechtUniversity/ilab-catalog
-# https://github.com/UtrechtUniversity/epos-msl
+---
+# FILE:            docker/full-stack/docker-compose.yml
+# LICENSE:         Public Domain
+
+version: "3"
+
+# @see https://github.com/ckan/ckan/wiki/How-to-Install-CKAN-2.7.3-on-CentOS7-with-Ansible
+# @see https://github.com/UtrechtUniversity/ilab-catalog
+# @see https://github.com/UtrechtUniversity/epos-msl
+# @see https://hub.docker.com/u/ckan
+# @see https://docs.ckan.org/en/2.8/maintaining/installing/install-from-docker-compose.html
+# @see https://github.com/ckan/ckan/tree/master/contrib/docker
+# @see https://hub.docker.com/u/easyckan/
+
+services:
+
+  # https://hub.docker.com/r/ckan/ckan
+  # docker pull ckan/ckan:latest
+  ckan_ckan:
+    image: nginxdemos/hello
+    labels:
+      - traefik.http.routers.http.rule=Host(`ckan.hxl.etica.dev`)
+      - traefik.http.routers.https.rule=Host(`ckan.hxl.etica.dev`)
+      - traefik.http.routers.https.entrypoints=https
+      - traefik.http.routers.https.tls=true
+      # - traefik.http.routers.https.tls.certresolver=letsencrypt
+
+  # https://hub.docker.com/r/ckan/postgresql
+  ckan_postgresql:
+    image: nginxdemos/hello
+
+  # docker pull ckan/solr:latest
+  ckan_solr:
+    image: nginxdemos/hello
+
+  ckan_redis:
+    container_name: redis
+    image: redis:latest
