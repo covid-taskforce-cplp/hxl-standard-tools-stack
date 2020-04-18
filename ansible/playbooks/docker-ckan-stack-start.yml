@@ -25,7 +25,8 @@
         state: present
         services:
           - ckan
-          - postgresql
+          - datapusher
+          - db
           - solr
           - redis
       register: output

@@ -84,6 +84,7 @@ services:
   # Admin Access (hxl.etiva.dev server) admin:cplppass
   portainer:
     image: portainer/portainer
+    container_name: portainer
     # command: -H tcp://tasks.agent:9001 --tlsskipverify
     # TODO: remove these exposed ports
     ports:

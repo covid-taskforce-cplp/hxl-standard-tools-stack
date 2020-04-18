@@ -26,6 +26,7 @@ services:
 #       # - traefik.http.routers.https.tls.certresolver=letsencrypt
   ckan:
     image: ckan/ckan:latest
+    container_name: ckan
     ports:
       - "0.0.0.0:${CKAN_PORT}:5000"
     environment:
@@ -45,7 +46,7 @@ services:
       - ckan_home:/usr/lib/ckan
       - ckan_storage:/var/lib/ckan
     links:
-      - postgresql
+      - db
       - solr
       - redis
     labels:
@@ -55,12 +56,18 @@ services:
       - traefik.http.routers.https.tls=true
       # - traefik.http.routers.https.tls.certresolver=letsencrypt
 
+  datapusher:
+    container_name: datapusher
+    image: clementmouchet/datapusher
+    ports:
+      - "8800:8800"
+
   # https://hub.docker.com/r/ckan/postgresql
 #   ckan_postgresql:
 #     image: nginxdemos/hello
-  postgresql:
+  db:
     image: ckan/postgresql
-    container_name: postgresql
+    container_name: db
     environment:
       - DS_RO_PASS=${DATASTORE_READONLY_PASSWORD}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
