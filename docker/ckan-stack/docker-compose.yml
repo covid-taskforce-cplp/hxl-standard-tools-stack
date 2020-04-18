@@ -16,8 +16,38 @@ services:
 
   # https://hub.docker.com/r/ckan/ckan
   # docker pull ckan/ckan:latest
-  ckan_ckan:
-    image: nginxdemos/hello
+#   ckan_ckan:
+#     image: nginxdemos/hello
+#     labels:
+#       - traefik.http.routers.http.rule=Host(`ckan.hxl.etica.dev`)
+#       - traefik.http.routers.https.rule=Host(`ckan.hxl.etica.dev`)
+#       - traefik.http.routers.https.entrypoints=https
+#       - traefik.http.routers.https.tls=true
+#       # - traefik.http.routers.https.tls.certresolver=letsencrypt
+  ckan:
+    image: ckan/ckan:latest
+    ports:
+      - "0.0.0.0:${CKAN_PORT}:5000"
+    environment:
+      # Defaults work with linked containers, change to use own Postgres, SolR, Redis or Datapusher
+      - CKAN_SQLALCHEMY_URL=postgresql://ckan:${POSTGRES_PASSWORD}@db/ckan
+      - CKAN_DATASTORE_WRITE_URL=postgresql://ckan:${POSTGRES_PASSWORD}@db/datastore
+      - CKAN_DATASTORE_READ_URL=postgresql://datastore_ro:${DATASTORE_READONLY_PASSWORD}@db/datastore
+      - CKAN_SOLR_URL=http://solr:8983/solr/ckan
+      - CKAN_REDIS_URL=redis://redis:6379/1
+      - CKAN_DATAPUSHER_URL=http://datapusher:8800
+      - CKAN_SITE_URL=${CKAN_SITE_URL}
+      - CKAN_MAX_UPLOAD_SIZE_MB=${CKAN_MAX_UPLOAD_SIZE_MB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DS_RO_PASS=${DATASTORE_READONLY_PASSWORD}
+    volumes:
+      - ckan_config:/etc/ckan
+      - ckan_home:/usr/lib/ckan
+      - ckan_storage:/var/lib/ckan
+    links:
+      - postgresql
+      - solr
+      - redis
     labels:
       - traefik.http.routers.http.rule=Host(`ckan.hxl.etica.dev`)
       - traefik.http.routers.https.rule=Host(`ckan.hxl.etica.dev`)
@@ -26,13 +56,35 @@ services:
       # - traefik.http.routers.https.tls.certresolver=letsencrypt
 
   # https://hub.docker.com/r/ckan/postgresql
-  ckan_postgresql:
-    image: nginxdemos/hello
+#   ckan_postgresql:
+#     image: nginxdemos/hello
+  postgresql:
+    image: ckan/postgresql
+    container_name: postgresql
+    environment:
+      - DS_RO_PASS=${DATASTORE_READONLY_PASSWORD}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ckan_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
 
   # docker pull ckan/solr:latest
-  ckan_solr:
-    image: nginxdemos/hello
+#   solr:
+#     image: nginxdemos/hello
+  solr:
+    image: ckan/solr
+    container_name: solr
+    volumes:
+      - ckan_solr_data:/opt/solr/server/solr/ckan/data
 
-  ckan_redis:
+  redis:
     container_name: redis
     image: redis:latest
+
+volumes:
+  ckan_config:
+  ckan_home:
+  ckan_storage:
+  ckan_pg_data:
+  ckan_solr_data:

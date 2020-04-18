@@ -24,11 +24,10 @@
         project_src: "{{ ansible_env.HOME }}/ckan-stack/"
         state: present
         services:
-        #  - hello
-          - ckan_ckan
-          - ckan_postgresql
-          - ckan_solr
-          - ckan_redis
+          - ckan
+          - postgresql
+          - solr
+          - redis
       register: output
 
     - name: "docker-ckan-stack-start | services result"
