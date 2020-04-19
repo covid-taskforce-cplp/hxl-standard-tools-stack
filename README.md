@@ -112,7 +112,7 @@ suggestions.
   - <https://proxy.hxl.etica.dev/>
 - **Internal URLs**
   - **Traefik Dashboard**
-    - <http://hxl.etica.dev:8080/dashboard/>
+    - <http://hxl.etica.dev:8888/dashboard/>
     - <https://traefik.hxl.etica.dev/dashboard/>
   - **Portainer**
     - <https://portainer.hxl.etica.dev/> (`admin` : `cplppass`)

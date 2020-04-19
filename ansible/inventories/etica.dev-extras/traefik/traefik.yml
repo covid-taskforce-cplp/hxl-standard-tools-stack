@@ -12,7 +12,9 @@ entryPoints:
     address: ":80"
   websecure:
     address: ":443"
-
+  traefik:
+    address: ":8888"
+ 
 ## TODO: learn how to implement middlewares on Traefik 2.2 and then do an default
 #        redirect http to https that could be referenced on docker-compose
 #        containers (fititnt, 2020-04-07 01:34)

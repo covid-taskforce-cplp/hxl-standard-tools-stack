@@ -5,3 +5,4 @@
 - name: "CKAN | Install {{ ckan_package_url }}"
   apt:
     deb: "{{ ckan_package_url }}"
+    # install_recommends: no
