@@ -1,2 +1,27 @@
 ---
-# tasks file for ckan
+# FILE:            playbooks/roles/ckan/tasks/main.yml
+# LICENSE:         Public Domain
+# SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/install-from-package.html
+# SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/install-from-source.html
+
+- name: Ubuntu?
+  fail:
+    msg: "This role as designed to only Ubuntu 18.04. Please look for other alternatives"
+  when: ansible_distribution != 'Ubuntu'
+
+# # SEE http://packaging.ckan.org/
+# - name: "ping all"
+#   ping:
+#     data: pong
+
+# - name: "Check if {{ traefik_install_base }}traefik exists"
+#   stat:
+#     path: "{{ traefik_install_base }}traefik"
+#   register: stat_result
+
+# - debug: var=stat_result
+
+- name: "install.yml"
+  include: install.yml
+#   when:
+#     - "(not stat_result.stat.exists) or (traefik_force_reinstall|bool)"

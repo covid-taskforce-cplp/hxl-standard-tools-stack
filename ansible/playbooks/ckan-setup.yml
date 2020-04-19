@@ -1,0 +1,11 @@
+---
+# FILE:            playbooks/ckan-setup.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Install CKAN on the host
+#
+# REQUIES:         roles/ckan (already on this project)
+# ansible-playbook -i inventories/etica.dev playbooks/ckan-setup.yml
+
+- hosts: all
+  roles:
+    - ckan

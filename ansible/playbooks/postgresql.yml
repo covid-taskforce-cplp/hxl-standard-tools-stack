@@ -1,0 +1,12 @@
+---
+# FILE:            playbooks/postgresql.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Install postgresql on the host.
+#                  It's used by CKAN. You can skip this playbook
+# SEE:             https://github.com/geerlingguy/ansible-role-postgresql
+
+# ansible-playbook -i inventories/etica.dev playbooks/postgresql.yml
+
+- hosts: all
+  roles:
+    - geerlingguy.postgresql

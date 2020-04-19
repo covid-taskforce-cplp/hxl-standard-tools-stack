@@ -11,3 +11,4 @@
 - import_playbook: playbooks/traefik.yml
 - import_playbook: playbooks/docker-setup-host.yml
 - import_playbook: playbooks/docker-full-stack-start.yml
+- import_playbook: playbooks/postgresql.yml
