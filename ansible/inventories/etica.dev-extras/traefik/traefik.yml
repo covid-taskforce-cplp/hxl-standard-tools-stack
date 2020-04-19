@@ -46,6 +46,9 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: true
+  file:
+    directory: "/etc/traefik/traefik.d/"
+    watch: true
 
 certificatesresolvers:
   letsencrypt:

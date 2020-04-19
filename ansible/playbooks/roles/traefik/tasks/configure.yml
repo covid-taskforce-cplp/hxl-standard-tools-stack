@@ -27,3 +27,22 @@
     # variable_end_string: "]]]"
   notify:
     - reload traefik
+
+- name: "Copy files from [[ traefik_conf_dinamyc_files ]] on /etc/traefik/traefik.d/"
+  copy:
+    src: "{{ item.src }}"
+    dest: "/etc/traefik/traefik.d/{{ item.name }}"
+    mode: 0664
+  with_items: "{{ traefik_conf_dinamyc_files }}"
+  when:
+    - "(traefik_conf_dinamyc_files is defined) and (traefik_conf_dinamyc_files|length > 0)"
+    - "(item.state is not defined) or (item.state != 'absent')"
+
+- name: "Delete files [[ traefik_conf_dinamyc_files ]] /etc/traefik/traefik.d/ if state=absent"
+  file:
+    dest: "/etc/traefik/traefik.d/{{ item.name }}"
+    state: absent
+  with_items: "{{ traefik_conf_dinamyc_files }}"
+  when:
+    - "(traefik_conf_dinamyc_files is defined) and (traefik_conf_dinamyc_files|length > 0)"
+    - "(item.state is defined) and (item.state == 'absent')"

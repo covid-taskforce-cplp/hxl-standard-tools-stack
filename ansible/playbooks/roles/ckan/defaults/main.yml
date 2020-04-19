@@ -4,3 +4,5 @@
 # This is how the package was created https://github.com/ckan/ckan-packaging/blob/master/package.yml
 ckan_package: "python-ckan_2.8-bionic_amd64.deb"
 ckan_package_url: "http://packaging.ckan.org/{{ ckan_package }}"
+
+ckan_force_reinstall: false

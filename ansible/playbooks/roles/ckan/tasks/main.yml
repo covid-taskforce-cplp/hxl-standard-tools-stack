@@ -17,14 +17,19 @@
 #   ping:
 #     data: pong
 
-# - name: "Check if {{ traefik_install_base }}traefik exists"
-#   stat:
-#     path: "{{ traefik_install_base }}traefik"
-#   register: stat_result
+- name: "Check if /etc/ckan/default/production.ini exists"
+  stat:
+    path: "/etc/ckan/default/production.ini"
+  register: stat_result
 
-# - debug: var=stat_result
+- debug: var=stat_result
 
 - name: "install.yml"
   include: install.yml
-#   when:
-#     - "(not stat_result.stat.exists) or (traefik_force_reinstall|bool)"
+  when:
+    - "(not stat_result.stat.exists) or (ckan_force_reinstall|bool)"
+
+- name: "configure.yml"
+  include: configure.yml
+  # when:
+  #   - "(not stat_result.stat.exists) or (ckan_force_reinstall|bool)"

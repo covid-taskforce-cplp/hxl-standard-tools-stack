@@ -1,0 +1,16 @@
+---
+# @see https://docs.traefik.io/providers/file/#configuration-examples
+
+http:
+  routers:
+    ckan:
+      service: "ckan"
+      rule: "Host(`ckan.hxl.etica.dev`)"
+      entrypoints: "web,websecure"
+      tls:
+        certresolver: letsencrypt"
+  services:
+    ckan:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"

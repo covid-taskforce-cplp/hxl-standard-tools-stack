@@ -15,6 +15,13 @@
     mode: '0755'
   become: yes
 
+- name: "Create /etc/traefik/traefik.d/ it does not exist"
+  file:
+    path: "/etc/traefik/traefik.d/"
+    state: directory
+    mode: '0755'
+  become: yes
+
 - name: "Create /var/log/traefik/ it does not exist"
   file:
     path: "/var/log/traefik/"

@@ -1,0 +1,28 @@
+---
+# FILE:            playbooks/roles/ckan/tasks/configure.yml
+# LICENSE:         Public Domain
+#
+# TODO: allow user specify the entire file instead of edit item by item
+#
+# SEE:             https://gist.github.com/jeffbr13/08751e42c9355cc44f5d
+
+# - name: Set CKAN Solr server address
+#   lineinfile: 
+#     dest: /etc/ckan/default/production.ini
+#     regexp: solr_url
+#     line: "solr_url=http://127.0.0.1:8983/solr"
+# - name: Set CKAN Solr server address
+#   lineinfile: 
+#     dest: /etc/ckan/default/production.ini
+#     regexp: solr_url
+#     line: "solr_url=http://127.0.0.1:8983/solr"
+
+- name: "/etc/ckan/default/production.ini [app:main] ckan.site_url "
+  ini_file:
+    path: /etc/ckan/default/production.ini
+    section: "app:main"
+    option: "ckan.site_url"
+    value: "{{ ckan.site_url }}"
+    # backup: yes
+  when:
+    - "ckan.site_url is defined"
