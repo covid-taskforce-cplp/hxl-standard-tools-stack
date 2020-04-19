@@ -1,6 +1,9 @@
 ---
 # FILE:            docker/full-stack/docker-compose.yml
 # LICENSE:         Public Domain
+#
+# DEPRECATED:      WARNING! This file is deprecated and not used. It will
+#                  stay here just as reference (fititnt, 2020-04-12 16:02 BRT)
 
 version: "3"
 

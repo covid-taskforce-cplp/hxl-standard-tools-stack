@@ -1,6 +1,11 @@
 # docker
 
-> @TODO: implement this part (fititnt, 2020-04-05 08:28 BRT)
+See [full-stack/docker-compose.yml](full-stack/docker-compose.yml) for the HXL
+main stack.
+
+Note: the [ckan-stack/docker-compose.yml](ckan-stack/docker-compose.yml), with
+softwares related to CKAN installed inside docker containers, was a draft and
+not used.
 
 ## Uninstall
 

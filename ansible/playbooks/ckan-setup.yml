@@ -9,3 +9,10 @@
 - hosts: all
   roles:
     - ckan
+
+  post_tasks:
+    - name: "CKAN | Stop/disable startup of NGinx (it is installed by default when using official deb packages)"
+      service:
+        name: nginx
+        enabled: no
+        state: stopped

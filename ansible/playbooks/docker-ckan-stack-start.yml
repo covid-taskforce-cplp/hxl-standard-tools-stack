@@ -1,9 +1,10 @@
 ---
 # FILE:            playbooks/docker-ckan-stack-start.yml
 # LICENSE:         Public Domain
-# DESCRIPTION:     
+# DESCRIPTION:     Install CKAN with docker-compose
 #
-# REQUIRES:       pip install docker
+# DEPRECATED:      WARNING! This file is deprecated and not used. It will
+#                  stay here just as reference (fititnt, 2020-04-12 16:02 BRT)
 
 # ansible-playbook -i inventories/etica.dev playbooks/docker-ckan-stack-start.yml
 

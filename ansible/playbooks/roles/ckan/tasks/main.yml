@@ -4,6 +4,9 @@
 # SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/install-from-package.html
 # SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/install-from-source.html
 
+# tail -f /var/log/apache2/ckan_default.error.log
+# vim /etc/ckan/default/production.ini
+
 - name: Ubuntu?
   fail:
     msg: "This role as designed to only Ubuntu 18.04. Please look for other alternatives"
