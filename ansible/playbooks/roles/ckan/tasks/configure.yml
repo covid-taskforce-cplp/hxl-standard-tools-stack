@@ -26,3 +26,13 @@
     # backup: yes
   when:
     - "ckan.site_url is defined"
+
+- name: "/etc/ckan/default/production.ini [app:main] sqlalchemy.url"
+  ini_file:
+    path: /etc/ckan/default/production.ini
+    section: "app:main"
+    option: "sqlalchemy.url"
+    value: "{{ ckan_conf_sqlalchemy_url }}"
+    # backup: yes
+  when:
+    - "ckan_conf_sqlalchemy_url is defined"

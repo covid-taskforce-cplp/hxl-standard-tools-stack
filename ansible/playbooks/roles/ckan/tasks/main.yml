@@ -3,6 +3,7 @@
 # LICENSE:         Public Domain
 # SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/install-from-package.html
 # SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/install-from-source.html
+# SEE:             https://docs.ckan.org/en/2.8/maintaining/installing/deployment.html
 
 # tail -f /var/log/apache2/ckan_default.error.log
 # vim /etc/ckan/default/production.ini
@@ -22,7 +23,7 @@
     path: "/etc/ckan/default/production.ini"
   register: stat_result
 
-- debug: var=stat_result
+# - debug: var=stat_result
 
 - name: "install.yml"
   include: install.yml
@@ -31,5 +32,7 @@
 
 - name: "configure.yml"
   include: configure.yml
-  # when:
-  #   - "(not stat_result.stat.exists) or (ckan_force_reinstall|bool)"
+
+- name: "postgresql.yml"
+  include: postgresql.yml
+

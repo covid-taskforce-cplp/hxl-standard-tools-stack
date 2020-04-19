@@ -1,0 +1,37 @@
+---
+# FILE:            playbooks/roles/ckan/tasks/postgresql.yml
+# LICENSE:         Public Domain
+
+- name: "Database {{ ckan_db_name }} should exist"
+  postgresql_db: 
+    name: "{{ ckan_db_name }}"
+  become: true
+  become_user: postgres
+
+- name: "User {{ ckan_db_user }} should access {{ ckan_db_user }} database"
+  postgresql_user:
+    name: "{{ ckan_db_user }}"
+    db: "{{ ckan_db_name }}"
+    password: "{{ ckan_db_password }}"
+    priv: 'ALL'
+  become: true
+  become_user: postgres
+
+- name: "Reduce role_attr_flags for {{ ckan_db_user }} user"
+  postgresql_user: 
+    name: "{{ ckan_db_user }}"
+    role_attr_flags: "NOSUPERUSER,NOCREATEROLE,NOCREATEDB"
+  become: true
+  become_user: postgres
+
+
+# root@hxl-eticadev:~# ls -lha /etc/ckan/default/
+# total 24K
+# drwxr-xr-x 2 root root 4.0K Apr 19 23:30 .
+# drwxr-xr-x 3 root root 4.0K Apr 19 16:35 ..
+# -rw-r--r-- 1 root root  405 Apr 15 07:06 apache.wsgi
+# -rw-r--r-- 1 root root 6.3K Apr 19 23:30 production.ini
+# -rw-r--r-- 1 root root  897 Apr 15 07:06 who.ini
+
+
+# chmod 644 /etc/ckan/default/apache.wsgi
