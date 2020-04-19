@@ -1,0 +1,13 @@
+---
+# FILE:            playbooks/solr.yml
+# LICENSE:         Public Domain
+# DESCRIPTION:     Install solr on the host.
+#                  It's used by CKAN. You can skip this playbook
+# SEE:             https://github.com/geerlingguy/ansible-role-solr
+
+# ansible-playbook -i inventories/etica.dev playbooks/solr.yml
+
+- hosts: all
+  roles:
+    - geerlingguy.java
+    - geerlingguy.solr

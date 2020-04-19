@@ -11,4 +11,7 @@
 - import_playbook: playbooks/traefik.yml
 - import_playbook: playbooks/docker-setup-host.yml
 - import_playbook: playbooks/docker-full-stack-start.yml
+- import_playbook: playbooks/redis.yml
 - import_playbook: playbooks/postgresql.yml
+- import_playbook: playbooks/solr.yml
+# - import_playbook: playbooks/ckan-setup.yml

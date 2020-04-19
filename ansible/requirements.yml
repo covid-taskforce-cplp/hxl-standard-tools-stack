@@ -17,3 +17,14 @@
 # https://github.com/geerlingguy/ansible-role-postgresql
 - src: geerlingguy.postgresql
   # Tested with v2.2.0, 2020-03-20
+
+- src: geerlingguy.java
+  # Tested with v1.9.7
+
+# https://github.com/geerlingguy/ansible-role-solr
+- src: geerlingguy.solr
+  # Tested with v5.1.0
+
+# https://github.com/DavidWittman/ansible-redis
+- src: davidwittman.redis
+  # Tested with v1.2.7
